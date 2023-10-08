@@ -11,8 +11,13 @@ namespace Xadrez_Console.tabuleiro {
             Pecas = new Peca[linhas, colunas];
         }
 
-        public Peca GetPeca(int linha, int coluna) {
+        public Peca GetPecaTab(int linha, int coluna) {
             return Pecas[linha,coluna];
+        }
+
+        public void SetPecaTab(Peca p, Posicao pos) {
+            Pecas[pos.Linha, pos.Coluna] = p; //Atribui uma peça na matriz c a posicao.linha e .coluna
+            p.Posicao = pos; //a peça p vai receber como posição o pos
         }
     }
 }
