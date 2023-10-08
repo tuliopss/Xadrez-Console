@@ -1,8 +1,7 @@
 ﻿
-using tabuleiro;
 using Xadrez_Console.Tabuleiro.Enums;
 
-namespace tabuleiro {
+namespace Xadrez_Console.tabuleiro {
     internal class Peca {
         public Posicao Posicao { get; set; }
         public Cor Cor { get; protected set; }
