@@ -31,6 +31,17 @@ namespace Xadrez_Console.tabuleiro {
             p.Posicao = pos; //a peça p vai receber como posição o pos
         }
 
+        public Peca RetirarPeca(Posicao pos) {
+            if(GetPecaTab(pos) == null) {
+                return null;
+            }
+            Peca aux = GetPecaTab(pos);
+             aux.Posicao = null;
+            Pecas[pos.Linha, pos.Coluna] = null;
+            return aux;
+            
+        }
+
         public bool CheckPosicao(Posicao pos) {
             if (pos.Linha < 0 || pos.Linha >= Linhas || pos.Coluna < 0 || pos.Coluna >= Colunas) {
                 return false;
