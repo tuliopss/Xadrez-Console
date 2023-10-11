@@ -8,14 +8,15 @@ using Xadrez_Console.Tabuleiro.Enums;
 
 namespace Xadrez_Console.xadrez {
     internal class PartidaXadrez {
-        public tabuleiro.Tabuleiro tab { get; private set; }
+        public tabuleiro.TabuleiroClass tab { get; private set; }
         private int Turno;
         private Cor JogadorAtual;
-
+        public bool Terminada { get; private set; }
         public PartidaXadrez() {
-            tab = new tabuleiro.Tabuleiro(8, 8);
+            tab = new tabuleiro.TabuleiroClass(8, 8);
             Turno = 1;
             JogadorAtual = Cor.Branca;
+            Terminada = false;
             ColocarPecas();
         }
 
@@ -30,6 +31,8 @@ namespace Xadrez_Console.xadrez {
         private void ColocarPecas() {
             tab.SetPecaTab(new Torre(tab, Cor.Branca), new PosicaoXadrez('a', 1).ToPosicao()); 
             tab.SetPecaTab(new Torre(tab, Cor.Branca), new PosicaoXadrez('h', 1).ToPosicao()); 
+
+            tab.SetPecaTab(new Rei(tab, Cor.Branca), new PosicaoXadrez('d', 4).ToPosicao()); 
             
             tab.SetPecaTab(new Torre(tab, Cor.Preta), new PosicaoXadrez('a', 8).ToPosicao()); 
             tab.SetPecaTab(new Torre(tab, Cor.Preta), new PosicaoXadrez('h', 8).ToPosicao()); 

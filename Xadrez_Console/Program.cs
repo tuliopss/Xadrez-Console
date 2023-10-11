@@ -4,7 +4,26 @@ using Xadrez_Console.xadrez;
 try {
     PartidaXadrez partida = new PartidaXadrez();
 
-    Tela.ImprimirTabuleiro(partida.tab);
+    while (!partida.Terminada) {
+        Console.Clear();
+        Tela.ImprimirTabuleiro(partida.tab);
+
+        Console.WriteLine();
+
+        Console.Write("Origem: ");
+        Posicao origem = Tela.LerPosicaoXadrez().ToPosicao();
+
+        bool[,] posicoesPossiveis = partida.tab.GetPecaTab(origem).MovimentosPossiveis();
+
+        Console.Clear();
+        Tela.ImprimirTabuleiro(partida.tab, posicoesPossiveis);
+
+
+        Console.Write("Destino: ");
+        Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
+
+        partida.ExecutaMovimento(origem, destino);
+    }
 
 
     Console.ReadLine();
