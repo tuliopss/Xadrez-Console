@@ -19,6 +19,8 @@ namespace Xadrez_Console.tabuleiro {
 
         public void IncrementarQtdMovimento() {
             QntdMovimentos++;
+        } public void DecrementarQtdMovimento() {
+            QntdMovimentos--;
         }
 
         public bool ExisteMovimentosPossiveis() {
