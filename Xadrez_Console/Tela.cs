@@ -4,6 +4,43 @@ using Xadrez_Console.xadrez;
 
 namespace Xadrez_Console.tabuleiro {
     internal class Tela {
+
+        public static void ImprimirPartida(PartidaXadrez partida) {
+            ImprimirTabuleiro(partida.tab);
+            Console.WriteLine();
+
+            ImprimirPecasCapturadas(partida);
+
+            Console.WriteLine();
+            Console.WriteLine("Turno: " + partida.Turno);
+            Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
+        }
+
+        public static void ImprimirPecasCapturadas(PartidaXadrez partida) {
+            Console.WriteLine("Peças capturadas: ");
+            Console.Write("Brancas: ");
+            ImprimirConjunto(partida.PecasCapturadas(Cor.Branca));
+            Console.WriteLine();
+            Console.Write("Pretas: ");
+
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            ImprimirConjunto(partida.PecasCapturadas(Cor.Preta));
+            Console.ForegroundColor = aux;  
+
+            Console.WriteLine();
+
+        }
+
+        public static void ImprimirConjunto(HashSet<Peca> conjunto) {
+            Console.Write("[");
+
+            foreach (Peca p in conjunto) {
+                Console.Write(p + " ");
+            }
+            Console.Write("]");
+        }
+
         public static void ImprimirTabuleiro(TabuleiroClass tab) {
             for (int i = 0; i < tab.Linhas; i++) {
                 Console.Write(8 - i + " ");
@@ -16,7 +53,7 @@ namespace Xadrez_Console.tabuleiro {
             Console.WriteLine("  a b c d e f g h");
         }
 
-        public static void ImprimirTabuleiro(TabuleiroClass tab, bool[,]posicoesPossiveis) {
+        public static void ImprimirTabuleiro(TabuleiroClass tab, bool[,] posicoesPossiveis) {
 
             ConsoleColor fundoOriginal = Console.BackgroundColor;
             ConsoleColor fundoAlterado = ConsoleColor.DarkGray;
@@ -26,7 +63,8 @@ namespace Xadrez_Console.tabuleiro {
                 for (int j = 0; j < tab.Colunas; j++) {
                     if (posicoesPossiveis[i, j]) {
                         Console.BackgroundColor = fundoAlterado;
-                    } else {
+                    }
+                    else {
                         Console.BackgroundColor = fundoOriginal;
                     }
 
