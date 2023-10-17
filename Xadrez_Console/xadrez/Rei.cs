@@ -4,9 +4,11 @@ using Xadrez_Console.Tabuleiro.Enums;
 
 namespace Xadrez_Console.xadrez {
     internal class Rei : Peca {
-        public Rei(TabuleiroClass tab, Cor cor) : base(tab, cor) {
-        }
+        private PartidaXadrez partida;
 
+        public Rei(TabuleiroClass tab, Cor cor, PartidaXadrez partida) : base(tab, cor) {
+            this.partida = partida;
+        }
 
         public override string ToString() {
             return "R";
