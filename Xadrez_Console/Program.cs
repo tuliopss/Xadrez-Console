@@ -32,7 +32,8 @@ try {
             Console.ReadLine();
         }
     }
-
+    Console.Clear();
+    Tela.ImprimirPartida(partida);
 
     Console.ReadLine();
 }

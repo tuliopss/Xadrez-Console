@@ -21,7 +21,7 @@ namespace Xadrez_Console.xadrez {
             Turno = 1;
             JogadorAtual = Cor.Branca;
             Terminada = false;
-            Xeque = false; 
+            Xeque = false;
             Pecas = new HashSet<Peca>();
             Capturadas = new HashSet<Peca>();
             ColocarPecas();
@@ -44,7 +44,7 @@ namespace Xadrez_Console.xadrez {
             Peca p = tab.RetirarPeca(destino);
             p.DecrementarQtdMovimento();
 
-            if(pecaCapturada != null) {
+            if (pecaCapturada != null) {
                 tab.SetPecaTab(pecaCapturada, destino);
                 Capturadas.Remove(pecaCapturada);
             }
@@ -55,7 +55,7 @@ namespace Xadrez_Console.xadrez {
         public void RealizaJogada(Posicao origem, Posicao destino) {
             Peca pecaCapturada = ExecutaMovimento(origem, destino);
 
-            if(EstaEmXeque(JogadorAtual)) {
+            if (EstaEmXeque(JogadorAtual)) {
                 DesfazerMovimento(origem, destino, pecaCapturada);
                 throw new TabuleiroException("Você não pode se colocar em cheque.");
             }
@@ -63,12 +63,20 @@ namespace Xadrez_Console.xadrez {
             if (EstaEmXeque(Adversaria(JogadorAtual))) {
                 Xeque = true;
 
-            } else {
+            }
+            else {
                 Xeque = false;
             }
 
-            Turno++;
-            MudaJogador();
+            if (TesteXequeMate(Adversaria(JogadorAtual))) {
+                Terminada = true;
+            }
+            else {
+                Turno++;
+                MudaJogador();
+            }
+
+
         }
 
         public void ValidarPosicaoOrigem(Posicao pos) {
@@ -157,19 +165,43 @@ namespace Xadrez_Console.xadrez {
             return false;
         }
 
+        public bool TesteXequeMate(Cor cor) {
+            if (!EstaEmXeque(cor)) {
+                return false;
+            }
+            foreach (Peca p in PecasEmJogo(cor)) {
+                bool[,] mat = p.MovimentosPossiveis();
+                for (int i = 0; i < tab.Linhas; i++) {
+                    for (int j = 0; j < tab.Colunas; j++) {
+                        if (mat[i, j]) {
+                            Posicao origem = p.Posicao;
+                            Posicao destino = new Posicao(i, j);
+                            Peca pecaCapturada = ExecutaMovimento(origem, destino);
+                            bool testeXeque = EstaEmXeque(cor);
+                            DesfazerMovimento(origem, destino, pecaCapturada);
+
+                            if (!testeXeque) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         public void ColocarNovaPeca(char coluna, int linha, Peca peca) {
             tab.SetPecaTab(peca, new PosicaoXadrez(coluna, linha).ToPosicao());
             Pecas.Add(peca);
         }
 
         private void ColocarPecas() {
-            ColocarNovaPeca('a', 1, new Torre(tab, Cor.Branca));
-            ColocarNovaPeca('h', 1, new Torre(tab, Cor.Branca));
+            ColocarNovaPeca('c', 1, new Torre(tab, Cor.Branca));
+            ColocarNovaPeca('h', 7, new Torre(tab, Cor.Branca));
             ColocarNovaPeca('d', 1, new Rei(tab, Cor.Branca));
 
-            ColocarNovaPeca('a', 8, new Torre(tab, Cor.Preta));
-            ColocarNovaPeca('h', 8, new Torre(tab, Cor.Preta));
-            ColocarNovaPeca('d', 8, new Rei(tab, Cor.Preta));
+            ColocarNovaPeca('a', 8, new Rei(tab, Cor.Preta));
+            ColocarNovaPeca('b', 8, new Torre(tab, Cor.Preta));
 
 
         }

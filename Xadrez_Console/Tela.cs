@@ -13,10 +13,18 @@ namespace Xadrez_Console.tabuleiro {
 
             Console.WriteLine();
             Console.WriteLine("Turno: " + partida.Turno);
-            Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
 
-            if(partida.Xeque) {
-                Console.WriteLine("Xeque!");
+            if (!partida.Terminada) {
+                Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
+
+
+                if (partida.Xeque) {
+                    Console.WriteLine("Xeque!");
+                }
+            }
+            else {
+                Console.WriteLine("Xeque Mate!");
+                Console.WriteLine($"Vencedor: {partida.JogadorAtual}");
             }
         }
 
@@ -30,7 +38,7 @@ namespace Xadrez_Console.tabuleiro {
             ConsoleColor aux = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             ImprimirConjunto(partida.PecasCapturadas(Cor.Preta));
-            Console.ForegroundColor = aux;  
+            Console.ForegroundColor = aux;
 
             Console.WriteLine();
 
