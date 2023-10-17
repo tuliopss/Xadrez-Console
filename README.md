@@ -1,1 +1,1 @@
-# Xadrez_Console
+Projeto de um jogo de xadrez, produzido via curso de Programação Orientada a Objetos com C# do professor Nélio Alves, que roda uma partida de xadrez no console, com os devidos tratamentos e lógica de acordo as regras originais. O projeto não conta com jogadas especiais (ex: Roque, En Passant).
